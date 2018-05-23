@@ -8,6 +8,9 @@
 #define IMAGE_HEIGHT    1024
 #define IMAGE_SIZE      (IMAGE_WIDTH * IMAGE_HEIGHT)
 
+unsigned char imageTmpArray[IMAGE_SIZE];
+unsigned char imageByteArray[IMAGE_SIZE*3];
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,13 +40,13 @@ void MainWindow::on_Button_Open_clicked()
 
     ui->label_status->setText("处理中...");
 
-    int size = file.size(); //获取文件字节数
+    long long size = file.size(); //获取文件字节数
     qDebug() << size;
 
     unsigned char data;
-    int image_counter = 0;
+    long long image_counter = 0;
 
-    int imagenum = size/IMAGE_SIZE;
+    long long imagenum = size/IMAGE_SIZE;
     for(int i=0;i<imagenum;i++)  //循环生成图片
     {
         //生成图片文件名
@@ -53,7 +56,6 @@ void MainWindow::on_Button_Open_clicked()
         QString ImageFileName = file_path + "/" + strtmp + ".bmp";
 
         //灰度数据临时BUFF
-        unsigned char imageTmpArray[IMAGE_SIZE];
         for(int j=0;j<IMAGE_SIZE;j++)
         {
             in >> data;
@@ -61,7 +63,6 @@ void MainWindow::on_Button_Open_clicked()
         }
 
         //拷贝到图像缓存数组
-        unsigned char imageByteArray[IMAGE_SIZE*3];
         for(int j=0;j<IMAGE_SIZE;j++)
         {
             imageByteArray[j*3] = imageByteArray[j*3+1] = imageByteArray[j*3+2] = imageTmpArray[j];

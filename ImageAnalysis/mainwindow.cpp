@@ -4,8 +4,8 @@
 #include <QPixmap>
 #include <QImage>
 
-#define IMAGE_WIDTH     80
-#define IMAGE_HEIGHT    48
+#define IMAGE_WIDTH     1024
+#define IMAGE_HEIGHT    1024
 #define IMAGE_SIZE      (IMAGE_WIDTH * IMAGE_HEIGHT)
 
 MainWindow::MainWindow(QWidget *parent) :
